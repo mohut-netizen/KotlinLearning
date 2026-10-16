@@ -1,10 +1,9 @@
-import kotlin.system.measureNanoTime
-enum class QuantityOfMeasurement(){
+enum class QuantityOfMeasurement{
     TEMPERATURE, LENGTH, MASS
 }
-enum class UnitOfMeasurement(var quantity: QuantityOfMeasurement){ //constructor accepts "quantity" arg & stores it inside the Unit
+enum class UnitOfMeasurement(val quantity: QuantityOfMeasurement){ //create primary constructor that accepts "quantity" arg & stores it inside the Unit
     //assign unit/quantity relationship
-    FAHRENHEIT(QuantityOfMeasurement.TEMPERATURE),
+    FAHRENHEIT(QuantityOfMeasurement.TEMPERATURE), //new UnitOfMeasurement NEEDS a quantity arg passed in when constructing
     CELSIUS(QuantityOfMeasurement.TEMPERATURE),
     KELVIN(QuantityOfMeasurement.TEMPERATURE),
     FEET(QuantityOfMeasurement.LENGTH),
@@ -27,7 +26,7 @@ class Measurement(var unit: UnitOfMeasurement, var magnitude: Double){
         if (unit.quantity != QuantityOfMeasurement.TEMPERATURE) {
             println("Can't convert a non-temperature to F!")
             throw Exception("Can't convert a non-temperature to F!")
-        };
+        }
 
         //return converted temperature
         return when(unit) {
@@ -48,7 +47,7 @@ class Measurement(var unit: UnitOfMeasurement, var magnitude: Double){
 }
 
 fun main(){
-    var myWeather = Measurement( UnitOfMeasurement.CELSIUS, 25.0) //celcius
+    var myWeather = Measurement( UnitOfMeasurement.CELSIUS, 25.0) //Celsius
     var height = Measurement(UnitOfMeasurement.INCH, 69.0)
     
     println("Weather is ${myWeather.magnitude} ${myWeather.unit} ${myWeather.getFahrenheit()} F")
